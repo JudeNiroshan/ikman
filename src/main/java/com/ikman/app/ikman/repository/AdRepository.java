@@ -11,4 +11,8 @@ public interface AdRepository extends CrudRepository<Ad, Long> {
 
     @Override
     List<Ad> findAll();
+
+    @Override
+    <S extends Ad> Iterable<S> saveAll(Iterable<S> iterable);
+
 }

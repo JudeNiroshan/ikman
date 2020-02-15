@@ -15,6 +15,12 @@ import java.time.LocalDateTime;
 @Table(name = "Ads")
 @Getter
 public class Ad {
+    public Ad(String name, String description, String price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -22,15 +28,12 @@ public class Ad {
     @Column(nullable = false)
     String name;
 
+    String description;
+
     @CreationTimestamp
     @Column(nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP")
     LocalDateTime created;
 
-    double price;
-
-    String currency;
-
-    String description;
-
-
+    @Column(nullable = false)
+    String price;
 }

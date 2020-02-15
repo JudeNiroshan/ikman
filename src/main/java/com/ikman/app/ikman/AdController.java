@@ -1,5 +1,6 @@
 package com.ikman.app.ikman;
 
+import com.ikman.app.ikman.init.IkmanFetcher;
 import com.ikman.app.ikman.models.Ad;
 import com.ikman.app.ikman.repository.AdRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +11,12 @@ import java.util.List;
 
 @RestController
 public class AdController {
-    final AdRepository adRepository;
+    private final AdRepository adRepository;
+    private final IkmanFetcher fetcher;
 
-    public AdController(AdRepository adRepository) {
+    public AdController(AdRepository adRepository, IkmanFetcher fetcher) {
         this.adRepository = adRepository;
+        this.fetcher = fetcher;
     }
 
     @GetMapping("/health")
@@ -23,7 +26,7 @@ public class AdController {
 
     @GetMapping("/ads/{name}")
     public Ad getByName(@PathVariable String name) {
-        return adRepository.findByName(name).stream().findFirst().orElse(new Ad());
+        return adRepository.findByName(name).stream().findFirst().orElse(null);
     }
 
     @GetMapping("/ads")
