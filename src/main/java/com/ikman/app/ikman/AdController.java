@@ -24,9 +24,9 @@ public class AdController {
         return "App is working";
     }
 
-    @GetMapping("/ads/{name}")
-    public Ad getByName(@PathVariable String name) {
-        return adRepository.findByName(name).stream().findFirst().orElse(null);
+    @GetMapping("/ads/category/{categoryName}")
+    public Ad getByName(@PathVariable String categoryName) {
+        return adRepository.findByName(categoryName).stream().findFirst().orElse(null);
     }
 
     @GetMapping("/ads")

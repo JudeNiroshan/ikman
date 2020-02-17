@@ -1,10 +1,14 @@
 package com.ikman.app.ikman.models.drafts;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
 public class AdDraft {
 
     private String name;
@@ -13,27 +17,7 @@ public class AdDraft {
 
     private String price;
 
-    public String getName() {
-        return name;
-    }
+    private CategoryDraft categoryDraft;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
+    private LocationDraft locationDraft;
 }
