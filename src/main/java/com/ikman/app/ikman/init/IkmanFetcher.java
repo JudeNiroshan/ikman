@@ -1,8 +1,5 @@
 package com.ikman.app.ikman.init;
 
-import com.ikman.app.ikman.models.Ad;
-import com.ikman.app.ikman.models.Category;
-import com.ikman.app.ikman.models.Location;
 import com.ikman.app.ikman.models.drafts.AdDraft;
 import com.ikman.app.ikman.transfomers.IkmanTransformer;
 import org.jsoup.Jsoup;
@@ -26,19 +23,12 @@ public class IkmanFetcher implements Fetcher {
         this.transformer = transformer;
     }
 
-    public List<Ad> getAllAds() throws IOException {
+    public List<AdDraft> getAllAds() throws IOException {
 
         Document document = Jsoup.connect(url).get();
 
         Elements adElements = document.select("li[class~=gtm-normal-ad]");
         return adElements.stream().map(transformer::transform)
-                .map(this::mapToAd).collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
-
-    public Ad mapToAd(AdDraft draft) {
-        Category category = new Category(draft.getCategoryDraft().getCategoryName());
-        Location location = new Location(draft.getLocationDraft().getLocationName());
-        return new Ad(draft.getName(), draft.getDescription(), draft.getPrice(), category, location);
-    }
-
 }

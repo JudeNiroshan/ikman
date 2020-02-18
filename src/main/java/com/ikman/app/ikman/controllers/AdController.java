@@ -1,8 +1,8 @@
-package com.ikman.app.ikman;
+package com.ikman.app.ikman.controllers;
 
 import com.ikman.app.ikman.init.IkmanFetcher;
 import com.ikman.app.ikman.models.Ad;
-import com.ikman.app.ikman.repository.AdRepository;
+import com.ikman.app.ikman.service.AdService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,12 +11,13 @@ import java.util.List;
 
 @RestController
 public class AdController {
-    private final AdRepository adRepository;
     private final IkmanFetcher fetcher;
 
-    public AdController(AdRepository adRepository, IkmanFetcher fetcher) {
-        this.adRepository = adRepository;
+    private final AdService adService;
+
+    public AdController(IkmanFetcher fetcher, AdService adService) {
         this.fetcher = fetcher;
+        this.adService = adService;
     }
 
     @GetMapping("/health")
@@ -25,12 +26,12 @@ public class AdController {
     }
 
     @GetMapping("/ads/category/{categoryName}")
-    public Ad getByName(@PathVariable String categoryName) {
-        return adRepository.findByName(categoryName).stream().findFirst().orElse(null);
+    public List<Ad> getByName(@PathVariable String categoryName) {
+        return adService.findByCategoryName(categoryName);
     }
 
     @GetMapping("/ads")
     public List<Ad> allAds() {
-        return adRepository.findAll();
+        return adService.findAll();
     }
 }

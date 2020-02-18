@@ -1,16 +1,21 @@
 package com.ikman.app.ikman.models;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Category")
-public class Category {
+@Getter
+public class Category implements Serializable {
+    public Category() {
+    }
 
     public Category(String categoryName) {
         this.categoryName = categoryName;
@@ -20,7 +25,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToMany(mappedBy="category")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     String categoryName;
 }

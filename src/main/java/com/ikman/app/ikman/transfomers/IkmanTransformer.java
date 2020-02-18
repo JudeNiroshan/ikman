@@ -13,15 +13,15 @@ public class IkmanTransformer {
     public AdDraft transform(Element element) {
 
         Elements adElement = element.select("a");
-        String name = adElement.attr("title");
-        String linkAsDescription = adElement.attr("href");
-        String priceAsText = adElement.select("[class~=^price]").select("span").text();
+        String name = adElement.attr("title").trim();
+        String linkAsDescription = adElement.attr("href").trim();
+        String priceAsText = adElement.select("[class~=^price]").select("span").text().trim();
         String locationAndCategory = element.select("div[class~=description--2]").text();
 
         int indexDeli = locationAndCategory.indexOf(',');
         String location = locationAndCategory.substring(0, indexDeli > 0 ?
-                indexDeli : locationAndCategory.length());
-        String category = locationAndCategory.substring(Math.max(indexDeli + 1, 0));
+                indexDeli : locationAndCategory.length()).trim();
+        String category = locationAndCategory.substring(Math.max(indexDeli + 1, 0)).trim();
 
         return createAdObj(name, linkAsDescription, priceAsText, category, location);
     }

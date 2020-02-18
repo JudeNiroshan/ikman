@@ -1,25 +1,30 @@
 package com.ikman.app.ikman.models;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Location")
-public class Location {
+@Getter
+public class Location implements Serializable {
+    public Location() {
+    }
+
     public Location(String location) {
-        this.name = location;
+        this.locationName = location;
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToMany(mappedBy="location")
     @Column(nullable = false)
-    String name;
+    String locationName;
 }
