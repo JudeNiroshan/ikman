@@ -20,11 +20,6 @@ public class AdController {
         this.adService = adService;
     }
 
-    @GetMapping("/health")
-    public String health() {
-        return "App is working";
-    }
-
     @GetMapping("/ads/category/{categoryName}")
     public List<Ad> getByName(@PathVariable String categoryName) {
         return adService.findByCategoryName(categoryName);

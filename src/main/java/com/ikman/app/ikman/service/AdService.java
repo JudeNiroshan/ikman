@@ -4,14 +4,10 @@ import com.ikman.app.ikman.models.Ad;
 import com.ikman.app.ikman.models.Category;
 import com.ikman.app.ikman.models.Location;
 import com.ikman.app.ikman.models.drafts.AdDraft;
-import com.ikman.app.ikman.models.drafts.CategoryDraft;
 import com.ikman.app.ikman.repository.AdRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AdService {
@@ -38,7 +34,8 @@ public class AdService {
     }
 
     public List<Ad> findByCategoryName(String categoryName) {
-        return repository.findByCategory(categoryName);
+        Category category = categoryService.getCategoryByName(categoryName);
+        return repository.findByCategory(category);
     }
 
     public List<Ad> findAll() {
