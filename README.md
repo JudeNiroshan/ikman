@@ -14,11 +14,12 @@ Completed Tasks:
  
  ✅ Load real advertisements(Only 25) from external systems every time API server is starting up
  
+ ✅ Integrate swagger UI [available at `/docs.html`]
+ 
  
 Future Tasks:
  - 
- ⭕ Integrate swagger UI
- 
+
  ⭕ create DockerFile.yml
  
  ⭕ Delete ads older than 1 week(using a scheduler within the API server)
