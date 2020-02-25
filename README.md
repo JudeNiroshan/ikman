@@ -16,11 +16,11 @@ Completed Tasks:
  
  ✅ Integrate swagger UI [available at `/docs.html`]
  
+ ✅ Containerized with Docker 🐳
+ 
  
 Future Tasks:
  - 
-
- ⭕ create DockerFile.yml
  
  ⭕ Delete ads older than 1 week(using a scheduler within the API server)
  
