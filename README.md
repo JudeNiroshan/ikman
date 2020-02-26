@@ -18,12 +18,11 @@ Completed Tasks:
  
  ✅ Containerized with Docker 🐳
  
+ ✅ Delete ads older than 1 week(using a scheduler within the API server) [every monday @ 00:00:00] ⏰
+ 
  
 Future Tasks:
  - 
- 
- ⭕ Delete ads older than 1 week(using a scheduler within the API server)
- 
  ⭕ Fetch Ads descriptions and more important data for each ad 🔁
  
  ⭕ Scrap ads from external systems by the categories and save them

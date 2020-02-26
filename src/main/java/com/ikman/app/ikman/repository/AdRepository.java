@@ -4,11 +4,10 @@ import com.ikman.app.ikman.models.Ad;
 import com.ikman.app.ikman.models.Category;
 import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AdRepository extends CrudRepository<Ad, Long> {
-
-    List<Ad> findByName(String name);
 
     @Override
     List<Ad> findAll();
@@ -18,4 +17,5 @@ public interface AdRepository extends CrudRepository<Ad, Long> {
     @Override
     <S extends Ad> Iterable<S> saveAll(Iterable<S> iterable);
 
+    void deleteAllByCreatedBefore(LocalDateTime localDateTime);
 }

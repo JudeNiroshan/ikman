@@ -7,19 +7,20 @@ import com.ikman.app.ikman.models.drafts.AdDraft;
 import com.ikman.app.ikman.repository.AdRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class AdService {
 
-    private final AdRepository repository;
+    private final AdRepository adRepository;
 
     private final CategoryService categoryService;
 
     private final LocationService locationService;
 
-    public AdService(AdRepository repository, CategoryService categoryService, LocationService locationService) {
-        this.repository = repository;
+    public AdService(AdRepository adRepository, CategoryService categoryService, LocationService locationService) {
+        this.adRepository = adRepository;
         this.categoryService = categoryService;
         this.locationService = locationService;
     }
@@ -30,15 +31,19 @@ public class AdService {
         Location location = locationService.getLocationByDraft(adDraft.getLocationDraft());
 
         Ad ad = new Ad(adDraft.getName(), adDraft.getDescription(), adDraft.getPrice(), category, location);
-        return repository.save(ad);
+        return adRepository.save(ad);
     }
 
     public List<Ad> findByCategoryName(String categoryName) {
         Category category = categoryService.getCategoryByName(categoryName);
-        return repository.findByCategory(category);
+        return adRepository.findByCategory(category);
+    }
+
+    public void removeAdsBefore(LocalDateTime localDateTime) {
+        adRepository.deleteAllByCreatedBefore(localDateTime);
     }
 
     public List<Ad> findAll() {
-        return repository.findAll();
+        return adRepository.findAll();
     }
 }
