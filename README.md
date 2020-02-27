@@ -1,4 +1,6 @@
-# ikman 
+[![Build Status](https://travis-ci.org/JudeNiroshan/ikman.svg?branch=master)](https://travis-ci.org/JudeNiroshan/ikman)
+
+# ikman scrapper
 Advertisement API with MySQL📚 + Spring-Boot 🚀
 
 This API is developed with the intention of following the best practices 
