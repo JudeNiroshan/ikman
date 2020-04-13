@@ -1,6 +1,8 @@
 package com.ikman.app.ikman.init;
 
+import com.ikman.app.ikman.models.Ad;
 import com.ikman.app.ikman.models.drafts.AdDraft;
+import com.ikman.app.ikman.transfomers.DetailedIkmanTransformer;
 import com.ikman.app.ikman.transfomers.IkmanTransformer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,20 +17,29 @@ import java.util.stream.Collectors;
 @Service
 public class IkmanFetcher implements Fetcher {
 
+    private final String baseUrl = "https://ikman.lk";
     private final String url;
     private final IkmanTransformer transformer;
+    private final DetailedIkmanTransformer detailedIkmanTransformer;
 
-    public IkmanFetcher(@Value("${data.provider.website}") String url, IkmanTransformer transformer) {
+    public IkmanFetcher(@Value("${data.provider.website}") String url, IkmanTransformer transformer,
+                        DetailedIkmanTransformer detailedIkmanTransformer) {
         this.url = url;
         this.transformer = transformer;
+        this.detailedIkmanTransformer = detailedIkmanTransformer;
     }
 
-    public List<AdDraft> getAllAds() throws IOException {
-
+    @Override
+    public List<AdDraft> fetch() throws IOException {
         Document document = Jsoup.connect(url).get();
 
         Elements adElements = document.select("li[class~=gtm-normal-ad]");
         return adElements.stream().map(transformer::transform)
                 .collect(Collectors.toList());
+    }
+
+    public AdDraft fetchDetails(AdDraft adDraft) throws IOException {
+        Document document = Jsoup.connect(baseUrl + adDraft.getPopUrl()).get();
+        return detailedIkmanTransformer.transform(adDraft, document);
     }
 }
