@@ -24,7 +24,7 @@ public class DataInitializer {
     @PostConstruct
     void loadDataFromExternalSystems(){
         try {
-            Set<Ad> saved = fetcher.getAllAds().stream()
+            Set<Ad> saved = fetcher.fetch().stream()
                     .map(adService::save)
                     .collect(Collectors.toSet());
             System.out.println("New ads===" + saved.size());

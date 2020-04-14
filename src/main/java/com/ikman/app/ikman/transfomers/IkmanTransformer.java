@@ -14,7 +14,7 @@ public class IkmanTransformer {
 
         Elements adElement = element.select("a");
         String name = adElement.attr("title").trim();
-        String linkAsDescription = adElement.attr("href").trim();
+        String popUrl = adElement.attr("href").trim();
         String priceAsText = adElement.select("[class~=^price]").select("span").text().trim();
         String locationAndCategory = element.select("div[class~=description--2]").text();
 
@@ -23,14 +23,14 @@ public class IkmanTransformer {
                 indexDeli : locationAndCategory.length()).trim();
         String category = locationAndCategory.substring(Math.max(indexDeli + 1, 0)).trim();
 
-        return createAdObj(name, linkAsDescription, priceAsText, category, location);
+        return createAdObj(name, popUrl, priceAsText, category, location);
     }
 
-    private AdDraft createAdObj(String name, String desc, String price, String category, String location) {
+    private AdDraft createAdObj(String name, String popUrl, String price, String category, String location) {
         CategoryDraft categoryDraft = CategoryDraft.builder().categoryName(category).build();
         LocationDraft locationDraft = LocationDraft.builder().locationName(location).build();
         return AdDraft.builder().name(name)
-                .description(desc)
+                .popUrl(popUrl)
                 .price(price)
                 .categoryDraft(categoryDraft)
                 .locationDraft(locationDraft)

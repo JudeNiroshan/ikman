@@ -18,4 +18,8 @@ public interface AdRepository extends CrudRepository<Ad, Long> {
     <S extends Ad> Iterable<S> saveAll(Iterable<S> iterable);
 
     void deleteAllByCreatedBefore(LocalDateTime localDateTime);
+
+    List<Ad> getAdsByStatusEquals(String string);
+
+    Ad findByNameAndPrice(String name, String price);
 }
